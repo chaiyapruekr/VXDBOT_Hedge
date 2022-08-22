@@ -1,4 +1,4 @@
-# tradingview-alert-webhook for binance-api (one-way mode)
+# tradingview-alert-webhook for binance-api (HEDGE mode)
 TradingView Strategy Alert Webhook that buys and sells crypto with the Binance API
 <sub> This script work only on Binance Future Hegde mode mode  or bot won't working.</sub>
 # Script is compatible with the follwing strategy message
@@ -31,6 +31,6 @@ TradingView Strategy Alert Webhook that buys and sells crypto with the Binance A
 7. ORDER_ENABLE = "TRUE" = Enable Bots "FALSE" = Disable Bots
 8. ReOpenOrder	= "on" = book order again if order not filled or fail "off" = disable 
 # YouTube tutorial on how to use this code (Thai)
-https://youtu.be/-4gHb5PiC2I
+https://youtu.be/t3AOdg9QPiI
 ### mod and dev by DR.AKN
 ### Compatible with VXD Cloud Edition Tradingview by Vaz
