@@ -224,7 +224,7 @@ def webhook():
             print("Do not have any Long Position on ",symbol)
 
     #OpenLong/BUY
-    if action == "OpenLong" and NEWORDER_ALLOW = "YES":
+    if action == "OpenLong" and NEWORDER_ALLOW == "YES":
         qty_precision = 0
         for j in client.futures_exchange_info()['symbols']:
             if j['symbol'] == symbol:
@@ -262,7 +262,7 @@ def webhook():
         print(symbol," : Open Long Position Excuted") 
     
     #OpenShort/SELL
-    if action == "OpenShort" and NEWORDER_ALLOW = "YES":                
+    if action == "OpenShort" and NEWORDER_ALLOW == "YES":                
         qty_precision = 0
         for j in client.futures_exchange_info()['symbols']:
             if j['symbol'] == symbol:
