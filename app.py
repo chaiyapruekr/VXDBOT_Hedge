@@ -30,6 +30,7 @@ BOT_NAME=str(os.environ['BOT_NAME'])
 FREEBALANCE=str(os.environ['FREEBALANCE'])
 SECRET_KEY=str(os.environ['SECRET_KEY'])
 ORDER_ENABLE=str(os.environ['ORDER_ENABLE'])
+NEWORDER_ALLOW=str(os.environ['NEWORDER_ALLOW'])
 #set order enable = FALSE in vars when want to test nonorder api cmd./TRUE for normal operation
 #client = Client(API_KEY,API_SECRET,testnet=TEST_NET)
 client = Client(API_KEY,API_SECRET)
@@ -223,7 +224,7 @@ def webhook():
             print("Do not have any Long Position on ",symbol)
 
     #OpenLong/BUY
-    if action == "OpenLong" :
+    if action == "OpenLong" and NEWORDER_ALLOW = "YES":
         qty_precision = 0
         for j in client.futures_exchange_info()['symbols']:
             if j['symbol'] == symbol:
@@ -261,7 +262,7 @@ def webhook():
         print(symbol," : Open Long Position Excuted") 
     
     #OpenShort/SELL
-    if action == "OpenShort" :                
+    if action == "OpenShort" and NEWORDER_ALLOW = "YES":                
         qty_precision = 0
         for j in client.futures_exchange_info()['symbols']:
             if j['symbol'] == symbol:
