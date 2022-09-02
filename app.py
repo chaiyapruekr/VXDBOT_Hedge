@@ -261,7 +261,7 @@ def webhook():
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol," : Open Long Position Excuted")
     if action == "OpenLong" and NEWORDER_ALLOW != "YES":    
-        msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" + "\nAmount  :" + str(Qty_buy) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(ask) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+  " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT" + "\nOpenLong Not Success , Check Config : NEWORDER_ALLOW"
+        msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" +  "\nOpenLong Not Success , Check Config."
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol," : Open Long Position was not success ,Check NEWORDER_ALLOW in configuration ")
     #OpenShort/SELL
@@ -303,7 +303,7 @@ def webhook():
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol,": Open Short Position Excuted")
     if action == "OpenShort" and NEWORDER_ALLOW != "YES":    
-        msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" + "\nAmount  :" + str(Qty_buy) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(ask) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+  " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT" + "\nOpenLong Not Success , Check Config : NEWORDER_ALLOW"
+        msg =""BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" +  "\nOpenShort Not Success , Check Config."
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol," : Open Short Position was not success ,Check NEWORDER_ALLOW in configuration ")
     
