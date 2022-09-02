@@ -259,8 +259,11 @@ def webhook():
         print("New Balance=",new_balance)
         msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" + "\nAmount  :" + str(Qty_buy) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(ask) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+  " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT"
         r = requests.post(url, headers=headers, data = {'message':msg})
-        print(symbol," : Open Long Position Excuted") 
-    
+        print(symbol," : Open Long Position Excuted")
+    if action == "OpenLong" and NEWORDER_ALLOW != "YES":    
+        msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" + "\nAmount  :" + str(Qty_buy) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(ask) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+  " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT" + "\nOpenLong Not Success , Check Config : NEWORDER_ALLOW"
+        r = requests.post(url, headers=headers, data = {'message':msg})
+        print(symbol," : Open Long Position was not success ,Check NEWORDER_ALLOW in configuration ")
     #OpenShort/SELL
     if action == "OpenShort" and NEWORDER_ALLOW == "YES":                
         qty_precision = 0
@@ -299,6 +302,10 @@ def webhook():
         msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[SELL]" + "\nAmount  :" + str(Qty_sell) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(bid) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+ " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT"
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol,": Open Short Position Excuted")
+    if action == "OpenShort" and NEWORDER_ALLOW != "YES":    
+        msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" + "\nAmount  :" + str(Qty_buy) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(ask) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+  " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT" + "\nOpenLong Not Success , Check Config : NEWORDER_ALLOW"
+        r = requests.post(url, headers=headers, data = {'message':msg})
+        print(symbol," : Open Short Position was not success ,Check NEWORDER_ALLOW in configuration ")
     
     #test/Position info
     if action == "test":
