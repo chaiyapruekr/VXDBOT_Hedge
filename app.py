@@ -303,7 +303,7 @@ def webhook():
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol,": Open Short Position Excuted")
     if action == "OpenShort" and NEWORDER_ALLOW != "YES":    
-        msg =""BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" +  "\nOpenShort Not Success , Check Config."
+        msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" +  "\nOpenShort Not Success , Check Config."
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol," : Open Short Position was not success ,Check NEWORDER_ALLOW in configuration ")
     
