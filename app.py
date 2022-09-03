@@ -30,8 +30,8 @@ BOT_NAME=str(os.environ['BOT_NAME'])
 FREEBALANCE=str(os.environ['FREEBALANCE'])
 SECRET_KEY=str(os.environ['SECRET_KEY'])
 ORDER_ENABLE=str(os.environ['ORDER_ENABLE'])
-NEWORDER_ALLOW=str(os.environ['NEWORDER_ALLOW'])
 #set order enable = FALSE in vars when want to test nonorder api cmd./TRUE for normal operation
+NEWORDER_ALLOW=str(os.environ['NEWORDER_ALLOW'])
 #client = Client(API_KEY,API_SECRET,testnet=TEST_NET)
 client = Client(API_KEY,API_SECRET)
 
@@ -50,6 +50,8 @@ def webhook():
     #check if secretkey is valid
     if passphrase != SECRET_KEY:
         print("Invalid SECRET KEY/PASSPHRASE")
+        msg = "BINANCE:\n" + "BOT       :" + BOT_NAME + "\n!!!WARNING!!!\nSECRET KEY/PASSPHRASE/<"
+        r = requests.post(url, headers=headers, data={'message': msg})
         return {
         "code" : "fail",
         "message" : "denied : nice try."
@@ -178,6 +180,9 @@ def webhook():
             print(symbol,": Close Short Position Excuted")
         else:
             print("Do not have any Short Position on ",symbol)
+            msg = "BINANCE:\n" + "BOT        :  " + BOT_NAME + "\nCoin         : " + COIN + "\nClose Short fail due to do not have any Short Position  open exist  " + "\nBalance   :" + str(
+                round(new_balance, 2)) + " USDT"
+            r = requests.post(url, headers=headers, data={'message': msg})
             
     #CloseLong/SELL
     if action == "CloseLong":
@@ -222,7 +227,9 @@ def webhook():
             print(symbol,": Close Long Position Excuted")
         else:
             print("Do not have any Long Position on ",symbol)
-
+            msg = "BINANCE:\n" + "BOT        :  " + BOT_NAME + "\nCoin         : " + COIN +  "\nClose Long fail due to do not have any Long Position  open exist  "  + "\nBalance   :" + str(
+                round(new_balance, 2)) + " USDT"
+            r = requests.post(url, headers=headers, data={'message': msg})
     #OpenLong/BUY
     if action == "OpenLong" and NEWORDER_ALLOW == "YES":
         qty_precision = 0
@@ -260,6 +267,7 @@ def webhook():
         msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" + "\nAmount  :" + str(Qty_buy) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(ask) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+  " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT"
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol," : Open Long Position Excuted")
+        #Unsuccess openlong due to  NEWORDER_ALOW, push line notification
     if action == "OpenLong" and NEWORDER_ALLOW != "YES":    
         msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" +  "\nOpenLong Not Success , Check Config."
         r = requests.post(url, headers=headers, data = {'message':msg})
@@ -302,6 +310,7 @@ def webhook():
         msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[SELL]" + "\nAmount  :" + str(Qty_sell) + " "+  COIN +"/"+str(usdt)+" USDT" + "\nPrice       :" + str(bid) + " USDT" + "\nLeverage: X" + str(round(lev)) +"\nMargin   :" + str(round(margin,2))+ " USDT"+ "\nBalance   :" + str(round(new_balance,2)) + " USDT"
         r = requests.post(url, headers=headers, data = {'message':msg})
         print(symbol,": Open Short Position Excuted")
+        #Unsuccess openShort due to  NEWORDER_ALOW, push line notification
     if action == "OpenShort" and NEWORDER_ALLOW != "YES":    
         msg ="BINANCE:\n" + "BOT        :" + BOT_NAME + "\nCoin        :" + COIN + "/USDT" + "\nStatus     :" + action + "[BUY]" +  "\nOpenShort Not Success , Check Config."
         r = requests.post(url, headers=headers, data = {'message':msg})
